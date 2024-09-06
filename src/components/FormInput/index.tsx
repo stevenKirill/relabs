@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { FC, ReactNode } from 'react';
 import {
   Input,

@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { FormInput } from '../FormInput';
 import classes from './classes.module.css';
 import { requiredRulesEmail, requiredRulesPassword } from './rules';
+import { useLoginStore } from '@/store';
 
 interface EditCdeditInsuranceScemaType {
   email: string,
@@ -26,6 +27,7 @@ const Form = () => {
       },
     },
   );
+  const setLoggedIn = useLoginStore((state) => state.setLoggedIn);
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const handleLogin: SubmitHandler<EditCdeditInsuranceScemaType> = async (data) => {
@@ -38,6 +40,8 @@ const Form = () => {
       };
       console.info(dataToSend);
       setLoading(false);
+      setLoggedIn();
+      localStorage.setItem('isLoggedIn', 'true');
       router.push('/main');
     }, 2000);
   };

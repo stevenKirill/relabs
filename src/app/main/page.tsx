@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { GridRowId, GridSortModel, GridValidRowModel } from '@mui/x-data-grid';
-import { usePathname, useRouter } from 'next/navigation';
+import { redirect, usePathname, useRouter } from 'next/navigation';
 import { ajax } from '@/services/ajax';
 import { BaseDataGrid } from '@/components/BaseDataGrid';
 import { columns } from './colums';
@@ -37,6 +37,12 @@ const Main = () => {
   const path = usePathname();
   const router = useRouter();
   const socket = configureSocket();
+  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+  useEffect(() => {
+    if (!isLoggedIn) {
+      redirect('/login');
+    }
+  }, [isLoggedIn]);
   useEffect(() => {
     (async () => {
       setLoading(true);
@@ -78,21 +84,26 @@ const Main = () => {
 
   return (
     <div className={classes.container}>
-      <h1 className={classes.title}>Пользователи</h1>
-      <BaseDataGrid
-        dataList={data}
-        totalElements={total}
-        tableColumns={columns}
-        loading={loading}
-        error={error}
-        pageNumber={pageNumber}
-        setPageNumber={setPageNumber}
-        rowsPerPage={rowsPerPage}
-        sortModel={sortModel}
-        setSortModel={setSortModel}
-        setRowsPerPage={setRowsPerPage}
-        onDeleteRow={handleDeleteRow}
-      />
+      {isLoggedIn && (
+      <>
+        <h1 className={classes.title}>Пользователи</h1>
+        <BaseDataGrid
+          dataList={data}
+          totalElements={total}
+          tableColumns={columns}
+          loading={loading}
+          error={error}
+          pageNumber={pageNumber}
+          setPageNumber={setPageNumber}
+          rowsPerPage={rowsPerPage}
+          sortModel={sortModel}
+          setSortModel={setSortModel}
+          setRowsPerPage={setRowsPerPage}
+          onDeleteRow={handleDeleteRow}
+        />
+      </>
+      )}
+
     </div>
   );
 };
