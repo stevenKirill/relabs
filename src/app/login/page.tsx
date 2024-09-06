@@ -3,10 +3,10 @@
 import React from 'react';
 import Form from '@/components/Form';
 import classes from './page.module.css';
-import { useLoginStore } from '@/store';
+import { useStore } from '@/store';
 
 const Login = () => {
-  const setLoggedOut = useLoginStore((store) => store.setLoggedOut);
+  const setLoggedOut = useStore((store) => store.setLoggedOut);
   localStorage.setItem('isLoggedIn', 'false');
   setLoggedOut();
   return (

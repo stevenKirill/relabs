@@ -12,6 +12,7 @@ import { formatTime } from '@/utils';
 import { configureSocket } from '@/utils/socket';
 import { IUsersResponse } from './types';
 import classes from './page.module.css';
+import { useStore } from '@/store';
 
 const getUsers = async (rowsPerPage: number, pageNumber: number) => {
   try {
@@ -37,6 +38,7 @@ const Main = () => {
   const path = usePathname();
   const router = useRouter();
   const socket = configureSocket();
+  const setSocket = useStore((store) => store.setSocket);
   const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
   useEffect(() => {
     if (!isLoggedIn) {
@@ -75,13 +77,13 @@ const Main = () => {
         event: socketData.event,
       })));
     };
+    setSocket(socket);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleDeleteRow = (deletingId: GridRowId) => {
     setData((prev) => prev.filter((item) => item.id !== deletingId));
   };
-
   return (
     <div className={classes.container}>
       {isLoggedIn && (
@@ -103,7 +105,6 @@ const Main = () => {
         />
       </>
       )}
-
     </div>
   );
 };

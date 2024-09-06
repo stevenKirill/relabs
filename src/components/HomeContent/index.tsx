@@ -2,10 +2,10 @@
 
 import { redirect } from 'next/navigation';
 import React from 'react';
-import { useLoginStore } from '@/store';
+import { useStore } from '@/store';
 
 const HomeContent = () => {
-  const isLoggedIn = useLoginStore((store) => store.isLoggedIn);
+  const isLoggedIn = useStore((store) => store.isLoggedIn);
   if (!isLoggedIn) {
     redirect('/login');
   }

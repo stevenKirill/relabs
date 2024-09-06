@@ -7,7 +7,9 @@ import {
   SxProps,
   Theme,
 } from '@mui/material';
-import { Controller, UseControllerProps, FieldError } from 'react-hook-form';
+import {
+  Controller, UseControllerProps, FieldError, Control, FieldValues,
+} from 'react-hook-form';
 import classes from './classes.module.css';
 
 export const inputStyles = {
@@ -24,7 +26,7 @@ interface IProps {
   placeholder: string;
   renderError?: (error: FieldError) => ReactNode;
   rules?: UseControllerProps['rules'];
-  control: UseControllerProps['control'];
+  control: Control<FieldValues>
   sx?: SxProps<Theme>
   inputComponent?: React.ElementType<InputBaseComponentProps>,
   disabled: boolean,

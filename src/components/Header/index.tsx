@@ -1,16 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import classes from './classes.module.css';
-import { useLoginStore } from '@/store';
+import { useStore } from '@/store';
 
 const Header = () => {
-  const [i, setI] = useState();
-  const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-  useEffect(() => {
-    setI(isLoggedIn);
-  }, [isLoggedIn]);
+  const isLoggedIn = useStore((store) => store.isLoggedIn);
   return (
     <header className={classes.wrapper}>
       <div>Logo</div>
@@ -19,7 +15,7 @@ const Header = () => {
           <Link href="/login">
             <li>Login</li>
           </Link>
-          {i && (
+          {isLoggedIn && (
             <>
               <Link href="/main">
                 <li>Main</li>

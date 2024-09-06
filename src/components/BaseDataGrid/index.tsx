@@ -91,7 +91,6 @@ export const BaseDataGrid: FC<BaseDataGridProps> = ({
   setSortModel,
   tableColumns,
   onDeleteRow,
-  getRowId,
 }) => {
   const handleTableCellClick = (params: GridCellParams) => {
     if (params.field === 'deleteIcon') {
@@ -109,7 +108,6 @@ export const BaseDataGrid: FC<BaseDataGridProps> = ({
         <DataGrid
           page={pageNumber}
           onPageChange={setPageNumber}
-          getRowId={getRowId}
           rows={dataList}
           columns={tableColumns}
           pageSize={rowsPerPage}
@@ -124,8 +122,9 @@ export const BaseDataGrid: FC<BaseDataGridProps> = ({
           onSortModelChange={setSortModel}
           onCellClick={handleTableCellClick}
           onColumnHeaderClick={handleTableHeaderClick}
-          paginationMode="server"
           componentsProps={componentsProps}
+          pageSizeOptions={defaultRowsPerPageOptions}
+          paginationMode="server"
         />
       )}
     </div>

@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { FormInput } from '../FormInput';
 import classes from './classes.module.css';
 import { requiredRulesEmail, requiredRulesPassword } from './rules';
-import { useLoginStore } from '@/store';
+import { useStore } from '@/store';
 
 interface EditCdeditInsuranceScemaType {
   email: string,
@@ -27,7 +27,7 @@ const Form = () => {
       },
     },
   );
-  const setLoggedIn = useLoginStore((state) => state.setLoggedIn);
+  const setLoggedIn = useStore((state) => state.setLoggedIn);
   const router = useRouter();
   const [loading, setLoading] = useState<boolean>(false);
   const handleLogin: SubmitHandler<EditCdeditInsuranceScemaType> = async (data) => {
